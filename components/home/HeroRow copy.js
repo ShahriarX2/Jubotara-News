@@ -48,7 +48,7 @@
 //             {/* Grid Below Hero */}
 //             {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
 //                 {bottomNews.map((news) => (
-//                     <Link key={news.id} href={`/news/${news.slug}`} className="group bg-white p-3 border border-transparent hover:border-gray-200 hover:shadow-md transition-all">
+//                     <Link key={news.id} href={`/news/${news.slug}`} className="group bg-white p-3 border border-transparent hover:border-slate-300 hover:shadow-md transition-all">
 //                         <div className="relative h-40 w-full mb-3 overflow-hidden">
 //                             <Image
 //                                 src={news.image}

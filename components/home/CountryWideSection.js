@@ -11,7 +11,7 @@ const CountryWideSection = ({ title, featureNews, gridNews = [] }) => {
             <div className="p-2 md:p-4  lg:p-6 border border-gray-300  ">
 
                 {/* Section Header */}
-                <div className="flex items-center justify-between border-b border-gray-200 pb-1 md:pb-3 mb-2 md:mb-6">
+                <div className="flex items-center justify-between border-b border-slate-300 pb-1 md:pb-3 mb-2 md:mb-6">
                     <div className="flex items-center gap-3">
                         <div className="w-1.5 h-8 bg-secondary"></div>
                         <h2 className="text-xl md:text-2xl font-semibold text-secondary">{title}</h2>
@@ -35,16 +35,16 @@ const CountryWideSection = ({ title, featureNews, gridNews = [] }) => {
                         </Link>
                     </div>
                     <div className="md:col-span-6 flex flex-col justify-between">
-                       <div>
-                         <Link href={`/news/${featureNews.slug}`} className="group">
-                            <h3 className="text-gray-600 text-lg md:text-[22px] leading-[24px] md:leading-[26px] group-hover:text-primary font-semibold transition-colors mb-1 md:mb-2">
-                                {featureNews.title}
-                            </h3>
-                        </Link>
-                        <p className="text-gray-600 text-base md:text-xl leading-relaxed line-clamp-2 md:line-clamp-6">
-                            {featureNews.summary}
-                        </p>
-                       </div>
+                        <div>
+                            <Link href={`/news/${featureNews.slug}`} className="group">
+                                <h3 className="text-gray-600 text-lg md:text-[22px] leading-[24px] md:leading-[26px] group-hover:text-primary font-semibold transition-colors mb-1 md:mb-2">
+                                    {featureNews.title}
+                                </h3>
+                            </Link>
+                            <p className="text-gray-600 text-base md:text-xl leading-relaxed line-clamp-2 md:line-clamp-6">
+                                {featureNews.summary}
+                            </p>
+                        </div>
                         <div className=" text-base md:text-xl font-semibold text-gray-700 uppercase tracking-wider mt-2 md:mt-0">
                             {featureNews.date} | {featureNews.time}
                         </div>
@@ -66,8 +66,8 @@ const CountryWideSection = ({ title, featureNews, gridNews = [] }) => {
                             <h4 className="text-gray-600 text-lg md:text-[22px] leading-[24px] md:leading-[26px] group-hover:text-primary font-semibold transition-colors line-clamp-2">
                                 {news?.title}
                             </h4>
-                               <p className="text-gray-500 text-base md:text-xl line-clamp-2 leading-relaxed ">
-                            {news?.summary}
+                            <p className="text-gray-500 text-base md:text-xl line-clamp-2 leading-relaxed ">
+                                {news?.summary}
                             </p>
                         </Link>
                     ))}

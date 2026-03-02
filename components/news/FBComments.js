@@ -31,7 +31,7 @@ const FBComments = ({ url }) => {
                     <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0"></div>
                     <div className="flex-1">
                         <textarea
-                            className="w-full border border-gray-200 rounded p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            className="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                             placeholder="একটি মন্তব্য লিখুন..."
                             rows="3"
                         ></textarea>

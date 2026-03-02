@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import MobileBottomNav from "@/components/common/MobileBottomNav";
+import Header from "@/components/common/Header/Header";
+import Footer from "@/components/common/Footer";
 
 const solaimanLipi = localFont({
   src: "../public/fonts/SolaimanLipi.ttf",
@@ -16,9 +18,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn" className={`${solaimanLipi.variable} font-sans`}>
-      <body className="antialiased bg-gray-50 pb-16 md:pb-0">
+      <body className=" bg-[#eff3f6] pb-16 md:pb-0">
+        <Header />
         {children}
         <MobileBottomNav />
+        <Footer />
       </body>
     </html>
   );

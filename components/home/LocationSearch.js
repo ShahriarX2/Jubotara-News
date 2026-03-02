@@ -48,7 +48,7 @@ const LocationSearch = () => {
   };
 
   return (
-    <div className="border border-gray-200 p-2 md:p-3 lg:p-5 rounded-sm shadow-sm h-full flex flex-col justify-between">
+    <div className="border border-slate-300 p-2 md:p-3 lg:p-5 rounded-sm shadow-sm h-full flex flex-col justify-between">
       <div>
         <h3 className="text-xl md:text-2xl font-bold text-secondary  border-b  border-gray-100 flex items-center justify-center">
           খুঁজুন
@@ -68,7 +68,7 @@ const LocationSearch = () => {
                 setSelectedDistrict('');
                 setSelectedUpazila('');
               }}
-              className="w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block focus:outline-none"
+              className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block focus:outline-none"
             >
               <option value="">বিভাগ নির্বাচন করুন</option>
               {divisions.map((div) => (
@@ -92,7 +92,7 @@ const LocationSearch = () => {
                 setSelectedUpazila('');
               }}
               disabled={!selectedDivision}
-              className="w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
+              className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
             >
               <option value="">জেলা নির্বাচন করুন</option>
               {availableDistricts.map((dist) => (
@@ -112,7 +112,7 @@ const LocationSearch = () => {
               value={selectedUpazila}
               onChange={(e) => setSelectedUpazila(e.target.value)}
               disabled={!selectedDistrict}
-              className="w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
+              className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
             >
               <option value="">উপজেলা নির্বাচন করুন</option>
               {availableUpazilas.map((up) => (

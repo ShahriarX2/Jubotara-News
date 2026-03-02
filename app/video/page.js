@@ -15,8 +15,8 @@ export default async function VideoListPage() {
     const videoNews = await getVideoNews();
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
-            <Header />
+        <div className="flex flex-col min-h-screen bg-[#eff3f6]">
+
 
             <main className="py-12">
                 <Container>
@@ -67,14 +67,14 @@ export default async function VideoListPage() {
 
                     {/* Empty State */}
                     {videoNews.length === 0 && (
-                        <div className="text-center py-24 bg-white rounded-xl border-2 border-dashed border-gray-200">
+                        <div className="text-center py-24 bg-white rounded-xl border-2 border-dashed border-slate-300">
                             <p className="text-gray-500 text-xl font-medium">কোনো ভিডিও সংবাদ পাওয়া যায়নি।</p>
                         </div>
                     )}
                 </Container>
             </main>
 
-            <Footer />
+
         </div>
     );
 }

@@ -1,7 +1,4 @@
-import Header from '@/components/common/Header/Header';
-import Footer from '@/components/common/Footer';
 import Container from '@/components/common/Container';
-import { getTeamMembers } from '@/lib/api';
 import Image from 'next/image';
 
 export const metadata = {
@@ -9,79 +6,180 @@ export const metadata = {
     description: 'বাংলা স্টার নিউজ পরিবারের সদস্যবৃন্দ',
 };
 
-export default async function TeamPage() {
-    const teamMembers = await getTeamMembers();
+// Team data organized by sections
+const teamData = {
+    head: {
+        name: 'তানভীর আহমেদ',
+        designation: 'সম্পাদক ও প্রকাশক',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
+    },
+    sections: [
+        {
+            title: 'উপদেষ্টা পরিষদ',
+            members: [
+                { name: 'আব্দুল করিম', designation: 'প্রধান উপদেষ্টা', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'রহিমা বেগম', designation: 'উপদেষ্টা', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop' },
+                { name: 'মোস্তাফিজুর রহমান', designation: 'উপদেষ্টা', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'কামরুল হাসান', designation: 'উপদেষ্টা', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+                { name: 'সালমা খাতুন', designation: 'উপদেষ্টা', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+        {
+            title: 'সম্পাদনা বিভাগ',
+            members: [
+                { name: 'ফারহানা রহমান', designation: 'বার্তা সম্পাদক', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop' },
+                { name: 'মাহমুদ হাসান', designation: 'প্রধান প্রতিবেদক', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'নাসরিন সুলতানা', designation: 'ফিচার এডিটর', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop' },
+                { name: 'তানভীর আহমেদ', designation: 'সিনিয়র সাব-এডিটর', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'সায়মা আক্তার', designation: 'সাব-এডিটর', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop' },
+                { name: 'রাশেদ চৌধুরী', designation: 'সাব-এডিটর', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+                { name: 'শাহিন আলম', designation: 'সাব-এডিটর', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+        {
+            title: 'রিপোর্টিং বিভাগ',
+            members: [
+                { name: 'আরিফুল ইসলাম', designation: 'সিনিয়র রিপোর্টার', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'ফাতেমা জান্নাত', designation: 'রিপোর্টার', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop' },
+                { name: 'মিজানুর রহমান', designation: 'রিপোর্টার', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'সুমন দাস', designation: 'রিপোর্টার', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+                { name: 'জাহিদ হাসান', designation: 'রিপোর্টার', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop' },
+                { name: 'নাফিসা ইসলাম', designation: 'রিপোর্টার', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+        {
+            title: 'ফটো ও ভিডিও বিভাগ',
+            members: [
+                { name: 'রাকিব হাসান', designation: 'চিফ ফটোগ্রাফার', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'সায়মা আক্তার', designation: 'ভিজুয়াল এডিটর', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop' },
+                { name: 'তৌহিদ ইকবাল', designation: 'ভিডিওগ্রাফার', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'আশিকুর রহমান', designation: 'ফটোগ্রাফার', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+        {
+            title: 'অনলাইন বিভাগ',
+            members: [
+                { name: 'ইমরান হোসেন', designation: 'অনলাইন এডিটর', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'রুবিনা আক্তার', designation: 'সোশ্যাল মিডিয়া ম্যানেজার', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop' },
+                { name: 'শাকিল আহমেদ', designation: 'কন্টেন্ট ম্যানেজার', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'তাসনিম জাহান', designation: 'ডিজিটাল মার্কেটার', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop' },
+                { name: 'জুবায়ের আলম', designation: 'ওয়েব ডেভেলপার', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+        {
+            title: 'জেলা প্রতিনিধি',
+            members: [
+                { name: 'আকবর আলী', designation: 'চট্টগ্রাম', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'রফিকুল ইসলাম', designation: 'রাজশাহী', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'মনিরুল হক', designation: 'খুলনা', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+                { name: 'শামীম আহমেদ', designation: 'সিলেট', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop' },
+                { name: 'কামাল উদ্দিন', designation: 'বরিশাল', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'আব্দুস সালাম', designation: 'রংপুর', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'নাজমুল হুদা', designation: 'ময়মনসিংহ', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+                { name: 'সাইফুল ইসলাম', designation: 'কুমিল্লা', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+        {
+            title: 'উপজেলা প্রতিনিধি',
+            members: [
+                { name: 'হাবিবুর রহমান', designation: 'সাভার', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'আনোয়ার হোসেন', designation: 'গাজীপুর', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'দিলদার হোসেন', designation: 'নারায়ণগঞ্জ', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop' },
+                { name: 'মাসুদ রানা', designation: 'মানিকগঞ্জ', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop' },
+                { name: 'জসিম উদ্দিন', designation: 'টাঙ্গাইল', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop' },
+                { name: 'সোহেল রানা', designation: 'নরসিংদী', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop' },
+            ],
+        },
+    ],
+};
+
+// Member card component
+function MemberCard({ member, size = 'normal' }) {
+    const isLarge = size === 'large';
+    const cardWidth = isLarge ? 'w-[160px] md:w-[200px]' : 'w-[120px] md:w-[180px]';
+    const imageHeight = isLarge ? 'h-[180px] md:h-[220px]' : 'h-[140px] md:h-[200px]';
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#eff3f6]">
-            <Header />
-
-            <main className="py-12">
-                <Container>
-                    <div className="mb-12 text-center">
-                        <h1 className="text-3xl md:text-5xl font-bold text-secondary mb-4">আমাদের টিম</h1>
-                        <div className="w-34 h-1 bg-secondary mx-auto"></div>
-                        <p className="mt-6 text-gray-600 max-w-2xl mx-auto text-lg md:text-2xl">
-                            বাংলা স্টার নিউজ পরিবারের একঝাঁক তরুণ ও অভিজ্ঞ সংবাদকর্মীদের সাথে পরিচিত হোন। যারা দিনরাত পরিশ্রম করছেন আপনাদের কাছে বস্তুনিষ্ঠ সংবাদ পৌঁছে দিতে।
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {teamMembers.map((member) => (
-                            <div key={member.id} className="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
-                                <div className="relative h-80 w-full overflow-hidden">
-                                    <Image
-                                        src={member.image}
-                                        alt={member.name}
-                                        fill
-                                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                        <div className="flex gap-4">
-                                            {member.social?.facebook && (
-                                                <a href={member.social.facebook} className="text-white hover:text-primary transition-colors">
-                                                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.5h-4.33A5.21,5.21,0,0,0,9,5.71V7.46H6.33v4.41H9V23.5h5.5V11.87h3.75Z" /></svg>
-                                                </a>
-                                            )}
-                                            {member.social?.twitter && (
-                                                <a href={member.social.twitter} className="text-white hover:text-primary transition-colors">
-                                                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M23.44,4.47a9.53,9.53,0,0,1-2.74.75,4.73,4.73,0,0,0,2.1-2.64,9.4,9.4,0,0,1-3,1.15,4.74,4.74,0,0,0-8.08,4.32,13.44,13.44,0,0,1-9.76-4.94,4.74,4.74,0,0,0,1.47,6.32,4.75,4.75,0,0,1-2.15-.59v.06a4.74,4.74,0,0,0,3.8,4.65,4.74,4.74,0,0,1-2.14,0.08,4.74,4.74,0,0,0,4.43,3.29,9.51,9.51,0,0,1-7.06,2.4,13.41,13.41,0,0,0,7.26,2.13c8.71,0,13.47-7.22,13.47-13.47,0-.2,0-.41,0-.61a9.6,9.6,0,0,0,2.37-2.45Z" /></svg>
-                                                </a>
-                                            )}
-                                            {member.social?.linkedin && (
-                                                <a href={member.social.linkedin} className="text-white hover:text-primary transition-colors">
-                                                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20.447,20.452h-3.554v-5.569c0-1.328-0.027-3.037-1.852-3.037c-1.853,0-2.136,1.445-2.136,2.939v5.667H9.351V9h3.414v1.561h0.046 c0.477-0.9,1.637-1.85,3.37-1.85c3.601,0,4.267,2.37,4.267,5.455V20.452z M5.337,7.433c-1.144,0-2.063-0.926-2.063-2.065 c0-1.138,0.92-2.063,2.063-2.063c1.14,0,2.064,0.925,2.064,2.063C7.403,6.507,6.477,7.433,5.337,7.433z M7.119,20.452H3.554V9h3.565 V20.452z" /></svg>
-                                                </a>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                                    <p className="text-primary font-semibold text-xl mb-4">{member.designation}</p>
-                                    <p className="text-lg text-gray-600 leading-relaxed">
-                                        {member.bio}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* <div className="mt-20 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col md:flex-row items-center gap-8">
-                        <div className="flex-1">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">আমাদের সাথে যোগ দিন</h2>
-                            <p className="text-gray-600 text-lg">
-                                আপনি কি সাংবাদিকতায় আগ্রহী? বাংলা স্টার নিউজ সবসময় মেধাবী ও সৃজনশীল সংবাদকর্মীদের স্বাগত জানায়। আপনার সিভি পাঠিয়ে দিন আমাদের ইমেইলে।
-                            </p>
-                        </div>
-                        <a href="mailto:career@banglastar.com" className="bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-secondary transition-colors shadow-lg shadow-red-100 whitespace-nowrap">
-                            আবেদন করুন
-                        </a>
-                    </div> */}
-                </Container>
-            </main>
-
-            <Footer />
+        <div className={`${cardWidth} flex flex-col items-center cursor-pointer hover:scale-105 transition-all duration-300`}>
+            <div className={`relative ${cardWidth} ${imageHeight} border-2 border-slate-300 bg-gray-100 overflow-hidden rounded-sm`}>
+                <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 120px, 150px"
+                />
+            </div>
+            <div className="mt-2 text-center w-full">
+                <h3 className="text-sm md:text-base lg:text-lg font-bold text-gray-900 leading-tight">{member.name}</h3>
+                <p className="text-xs md:text-sm lg:text-base text-gray-600 leading-tight mt-0.5">{member.designation}</p>
+            </div>
         </div>
+    );
+}
+
+// Section header component
+function SectionHeader({ title }) {
+    return (
+        <div className="flex justify-center mb-6 mt-10">
+            <div className="relative">
+                <div className="bg-gradient-to-r from-[#1a3a5c] via-[#1e4d7b] to-[#1a3a5c] text-white px-8 md:px-16 py-2.5 text-lg md:text-xl font-bold text-center rounded-sm shadow-md">
+                    {title}
+                </div>
+                {/* Decorative triangle at bottom */}
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-r-[10px] border-t-[8px] border-l-transparent border-r-transparent border-t-[#1e4d7b]"></div>
+            </div>
+        </div>
+    );
+}
+
+export default function TeamPage() {
+    return (
+        <main className="bg-[#eff3f6] py-6 md:py-10">
+            <Container>
+
+                <div className='flex flex-col items-center'>
+                    <span className="text-center text-4xl font-bold text-gray-900 mb-10 pb-2 border-b border-gray-400">আমাদের পরিবার</span>
+                    {/* Head / Chief Section */}
+                    <div className="flex flex-col items-center mb-8">
+                        <div className="relative w-[180px] md:w-[220px] h-[210px] md:h-[260px] border-3 border-primary bg-gray-100 overflow-hidden rounded-sm shadow-lg">
+                            <Image
+                                src={teamData.head.image}
+                                alt={teamData.head.name}
+                                fill
+                                className="object-cover"
+                                sizes="220px"
+                                priority
+                            />
+                        </div>
+                        <div className="mt-3 text-center">
+                            <h2 className="text-xl md:text-2xl font-bold text-gray-900">{teamData.head.name}</h2>
+                            <p className="text-base md:text-lg text-primary font-semibold">{teamData.head.designation}</p>
+                        </div>
+                    </div>
+
+                    {/* Divider line */}
+                    <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-4"></div>
+
+                    {/* Team Sections */}
+                    {teamData?.sections?.map((section, sectionIndex) => (
+                        <div key={sectionIndex} className="mb-8">
+                            <SectionHeader title={section.title} />
+
+                            {/* Members grid */}
+                            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-6">
+                                {section.members.map((member, memberIndex) => (
+                                    <MemberCard
+                                        key={memberIndex}
+                                        member={member}
+                                        size="normal"
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </Container>
+        </main>
     );
 }

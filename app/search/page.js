@@ -20,7 +20,7 @@ export default async function SearchPage({ searchParams }) {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Header />
+
             <BreakingNews news={breakingNews} />
 
             <main className="py-12">
@@ -48,7 +48,7 @@ export default async function SearchPage({ searchParams }) {
                 </Container>
             </main>
 
-            <Footer />
+
         </div>
     );
 }

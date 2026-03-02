@@ -46,9 +46,9 @@ export default async function CategoryPage({ params }) {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen bg-white">
-            <Header />
-        
+        <div className="flex flex-col min-h-screen bg-[#eff3f6]">
+
+
 
             <main className="py-6">
                 <Container>
@@ -103,7 +103,7 @@ export default async function CategoryPage({ params }) {
                                     {/* News Grid */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
                                         {otherNews.map((news) => (
-                                            <Link key={news.id} href={`/news/${news.slug}`} className="flex gap-3 group border border-gray-300 p-2 hover:bg-gray-50 transition-colors">
+                                            <Link key={news.id} href={`/news/${news.slug}`} className="flex gap-3 group border border-gray-300 p-2 hover:bg-[#eff3f6] transition-colors">
                                                 <div className="flex-1">
                                                     <h3 className="text-base md:text-xl font-bold text-gray-800 leading-snug group-hover:text-red-600 
                                                     transition-colors line-clamp-1">
@@ -170,7 +170,7 @@ export default async function CategoryPage({ params }) {
                 </Container>
             </main>
 
-            <Footer />
+
         </div>
     );
 }

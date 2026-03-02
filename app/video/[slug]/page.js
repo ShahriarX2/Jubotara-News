@@ -31,14 +31,14 @@ export default async function VideoDetailPage({ params }) {
     const videoId = getYoutubeId(video.videoUrl);
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
-            <Header />
+        <div className="flex flex-col min-h-screen bg-[#eff3f6]">
+
 
             <main className="py-6">
                 <Container className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Main Content */}
                     <div className="lg:col-span-8">
-                        <div className="bg-white p-4 md:p-6 rounded-sm shadow-sm border border-gray-200">
+                        <div className="bg-white p-4 md:p-6 rounded-sm shadow-sm border border-slate-300">
                             {/* Video Player Section */}
                             <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black mb-6">
                                 {videoId ? (
@@ -79,7 +79,7 @@ export default async function VideoDetailPage({ params }) {
                         </div>
 
                         {/* Description Placeholder */}
-                        {/* <div className="mt-8 bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                        {/* <div className="mt-8 bg-white p-6 rounded-sm shadow-sm border border-slate-300">
                             <h2 className="text-xl font-bold mb-4 border-b pb-2">বিস্তারিত</h2>
                             <p className="text-gray-700 leading-relaxed text-lg">
                                 {video.title} নিয়ে বিস্তারিত ভিডিওটি উপরে দেওয়া হয়েছে। দেশের সর্বশেষ খবর এবং ভিডিওর জন্য আমাদের সাথেই থাকুন।
@@ -93,7 +93,7 @@ export default async function VideoDetailPage({ params }) {
                         <div className="bg-gray-100 h-80 rounded-sm flex items-center justify-center border-2 border-dashed border-gray-300">
                             <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">বিজ্ঞাপন / Advertisement</span>
                         </div>
-                        <div className="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                        <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-300">
                             <h2 className="text-xl font-bold mb-6 border-b-2 border-red-600 pb-2 flex items-center gap-2">
                                 <span className="w-2 h-6 bg-red-600 inline-block"></span>
                                 সম্পর্কিত ভিডিও
@@ -135,7 +135,7 @@ export default async function VideoDetailPage({ params }) {
                 </Container>
             </main>
 
-            <Footer />
+
         </div>
     );
 }

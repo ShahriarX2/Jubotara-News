@@ -6,7 +6,7 @@ const BreakingNews = ({ news = [] }) => {
     if (!news || news.length === 0) return null;
 
     return (
-        <div className="bg-white  overflow-hidden  lg:ml-[210px]  ">
+        <div className="bg-[#eff3f6]  overflow-hidden  lg:ml-[210px]  ">
             <Container className="flex items-center ">
                 {/* Label */}
                 <div className="flex items-center gap-2 bg-black text-white px-3 my-1 py-0.5 text-xs font-black whitespace-nowrap z-10 text-[13px] sm:text-sm md:text-lg">

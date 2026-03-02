@@ -11,7 +11,7 @@
 
 // const TrendingBar = () => {
 //     return (
-//         <div className="bg-white border-b border-gray-200 py-3.5 hidden md:block">
+//         <div className="bg-white border-b border-slate-300 py-3.5 hidden md:block">
 //             <Container className="flex items-center justify-between relative">
 //                 <div className="flex items-center gap-4 ml-[120px] lg:ml-[150px] text-[13px] sm:text-sm md:text-lg ">
 

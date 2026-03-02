@@ -37,7 +37,7 @@ export default async function Home() {
 
   return (
     <div className=" min-h-screen bg-[#eff3f6]">
-      <Header />
+
       {/* Ad Space  */}
       <Container >
         <div className=" h-32 bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center font-bold text-gray-400">
@@ -114,7 +114,7 @@ export default async function Home() {
         </Container>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

@@ -67,7 +67,7 @@ const ShareButtons = ({ title, url }) => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`w-9 h-9 rounded-full border border-gray-200 bg-transparent flex items-center justify-center transition-all duration-300 hover:-translate-y-1 transform ${link.color}`}
+              className={`w-9 h-9 rounded-full border border-slate-300 bg-transparent flex items-center justify-center transition-all duration-300 hover:-translate-y-1 transform ${link.color}`}
               title={link.name}
             >
               {link.icon}
@@ -76,7 +76,7 @@ const ShareButtons = ({ title, url }) => {
 
           <button
             onClick={handleCopy}
-            className={`group relative flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm transition-all duration-300 hover:border-primary hover:text-primary ${copied ? 'bg-primary border-primary text-white' : ''
+            className={`group relative flex items-center justify-center w-9 h-9 rounded-full border border-slate-300 bg-white text-gray-500 shadow-sm transition-all duration-300 hover:border-primary hover:text-primary ${copied ? 'bg-primary border-primary text-white' : ''
               }`}
             title="লিঙ্ক কপি করুন"
           >

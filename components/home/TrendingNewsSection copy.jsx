@@ -54,7 +54,7 @@
 //           {newsData.map((news) => (
 //             <div
 //               key={news.id}
-//               className="flex gap-4 border-b pb-4 hover:bg-gray-50 transition duration-200 cursor-pointer"
+//               className="flex gap-4 border-b pb-4 hover:bg-[#eff3f6] transition duration-200 cursor-pointer"
 //             >
 //               {/* Image */}
 //               <div className="w-28 h-20 relative flex-shrink-0">

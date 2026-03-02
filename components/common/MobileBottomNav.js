@@ -79,7 +79,7 @@ export default function MobileBottomNav() {
                         <Link
                             key={cat.id}
                             href={`/category/${cat.slug}`}
-                            className="flex items-center gap-4 p-1 rounded-xl hover:bg-gray-50 transition-all group"
+                            className="flex items-center gap-4 p-1 rounded-xl hover:bg-[#eff3f6] transition-all group"
                         >
                             {/* <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                                 <ChevronRight size={16} />
@@ -104,7 +104,7 @@ export default function MobileBottomNav() {
                 </div>
 
                 {/* Drawer Footer */}
-                <div className="p-6 bg-gray-50 border-t border-gray-100">
+                <div className="p-6 bg-[#eff3f6] border-t border-gray-100">
                     <div className="flex gap-4 justify-center">
                         <a href="#" className="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center transition-transform hover:scale-110"><Facebook size={20} /></a>
                         <a href="#" className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center transition-transform hover:scale-110"><Twitter size={20} /></a>

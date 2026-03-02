@@ -53,7 +53,7 @@
 //     };
 
 //     return (
-//         <div className=" border border-gray-200 p-5 rounded-sm shadow-sm h-full flex flex-col justify-between">
+//         <div className=" border border-slate-300 p-5 rounded-sm shadow-sm h-full flex flex-col justify-between">
 //             <div>
 //                 <h3 className="text-xl font-bold text-gray-800 mb-2 border-b pb-2 border-gray-100 flex items-center justify-center
 //                 ">
@@ -67,7 +67,7 @@
 //                         <select
 //                             value={selectedDivision}
 //                             onChange={(e) => setSelectedDivision(e.target.value)}
-//                             className="w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block focus:outline-none"
+//                             className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block focus:outline-none"
 //                         >
 //                             <option value="">বিভাগ নির্বাচন করুন</option>
 //                             {divisions.map((div) => (
@@ -85,7 +85,7 @@
 //                             value={selectedDistrict}
 //                             onChange={(e) => setSelectedDistrict(e.target.value)}
 //                             disabled={!selectedDivision}
-//                             className="w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
+//                             className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
 //                         >
 //                             <option value="">জেলা নির্বাচন করুন</option>
 //                             {availableDistricts.map((dist) => (
@@ -103,7 +103,7 @@
 //                             value={selectedUpazila}
 //                             onChange={(e) => setSelectedUpazila(e.target.value)}
 //                             disabled={!selectedDistrict}
-//                             className="w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
+//                             className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
 //                         >
 //                             <option value="">উপজেলা নির্বাচন করুন</option>
 //                             {availableUpazilas.map((up) => (

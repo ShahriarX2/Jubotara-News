@@ -9,7 +9,7 @@ const HeronNewsSection = ({ mainNews, bottomNews = [] }) => {
 
     return (
         <Container className=" ">
-            <div className='border-t border-gray-200 pb-3'>
+            <div className='border-t border-slate-300 pb-3'>
 
             </div>
             {/* Top Featured Story */}
@@ -58,7 +58,7 @@ const HeronNewsSection = ({ mainNews, bottomNews = [] }) => {
                 </div>
             </div>
 
-           
+
         </Container>
     );
 };
