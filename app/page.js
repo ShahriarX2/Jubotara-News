@@ -26,7 +26,7 @@ export default async function Home() {
 
 
   const sportsNews = await getNewsByCat("sports", 20)
-  const sortsFirstNews = sportsNews[0];
+  const sportsFirstNews = sportsNews[0];
   const sportsSideNews = sportsNews.slice(1, 7)
 
 
@@ -93,13 +93,14 @@ export default async function Home() {
         <VideoSection videos={videoNews} />
 
         {/* Sports Section */}
-        <SpecialCategorySection
+        {sportsFirstNews  &&   <SpecialCategorySection
           title="খেলাধুলা"
-          firstNews={sortsFirstNews}
+          firstNews={sportsFirstNews}
           sideNews={sportsSideNews}
           slug={'sports'}
 
-        />
+        />}
+      
 
 
 
