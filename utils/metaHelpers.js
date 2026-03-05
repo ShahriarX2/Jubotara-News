@@ -53,7 +53,7 @@ export const getMediaLinkByMetaName = (data, metaName) => {
 
 
 export const getImageUrl = (url) => {
-  return `${BASE_URL}/${url}`
+  return `${BASE_URL}${url}`
 }
 
 // export const getMediaLinkByMetaName = (data, metaName) => {
