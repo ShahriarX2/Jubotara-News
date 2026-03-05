@@ -22,7 +22,7 @@ const Search = () => {
                     placeholder="Search..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="w-0 group-hover:w-48 focus:w-48 transition-all duration-300 bg-transparent border-b border-white text-white text-sm focus:outline-none placeholder-white/50 py-1"
+                    className="w-0 group-hover:w-64 focus:w-64 transition-all duration-300 bg-transparent border-b border-white text-white text-sm focus:outline-none placeholder-white/50 py-1"
                 />
                 <button type="submit" className="p-2 text-white hover:text-white/80 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

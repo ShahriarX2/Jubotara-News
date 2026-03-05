@@ -8,8 +8,10 @@ import truncate from '@/utils/truncate';
 
 const HeronNewsSection = async () => {
 
+
     const featuredNews = await getTrandingNews();
     const featuredNewsFirst = featuredNews[0];
+    const newsCategories = featuredNewsFirst?.categories || []
 
     return (
         <Container className=" ">
@@ -17,7 +19,7 @@ const HeronNewsSection = async () => {
 
             </div>
             {/* Top Featured Story */}
-            <div className="px-2 md:px-3 lg:px-3 py-2 border-r-2 border-l-4 border-l-secondary border-gray-300 w-full">
+            <div className="px-2 md:px-3 lg:px-3 py-2 pb-4 border-r-2 border-l-4 border-l-secondary border-gray-300 w-full">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                     {/* Text Side */}
                     <div className="md:col-span-4 lg:col-span-5 flex flex-col justify-between ">
@@ -28,7 +30,7 @@ const HeronNewsSection = async () => {
                                     {featuredNewsFirst?.name}
                                 </h1>
                             </Link>
-                            <p className="text-gray-600  text-base md:text-2xl leading-relaxed mt-2 md:mt-3 line-clamp-3 md:line-clamp-6
+                            <p className="text-gray-600  text-base md:text-2xl leading-relaxed mt-2 md:mt-3 line-clamp-3 md:line-clamp-5
  ">
 
                                 {truncate(featuredNewsFirst?.description, 700)}
@@ -38,9 +40,11 @@ const HeronNewsSection = async () => {
                             <span>{mainNews.time}</span>
                         </div> */}
                         </div>
-                        <div className="flex gap-2 pt-4 text-base md:text-xl">
-                            <div className="px-3 py-1 bg-gray-200  font-bold text-gray-600">জাতীয়</div>
-                            <div className="px-3 py-1 bg-gray-200  font-bold text-gray-600">রাজনীতি</div>
+                        <div className="flex flex-wrap gap-2 pt-4 lg:pt-10 text-base md:text-xl">
+                            {newsCategories?.map(cat => (
+                                <div key={cat.id} className="px-3 py-1 bg-gray-200  font-bold text-gray-600">{cat?.name}</div>
+                            ))}
+
                         </div>
                     </div>
 

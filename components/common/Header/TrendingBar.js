@@ -18,7 +18,7 @@ const trendingTopics = [
   { id: 6, name: "শেয়ারবাজার", slug: "/search?q=stock" },
 ];
 
-const TrendingBar = () => {
+const TrendingBar = ({ trendingTags }) => {
   return (
     <div className=" py-3.5">
       <Container>
@@ -36,7 +36,7 @@ const TrendingBar = () => {
             />
           </div>
 
-        
+
 
           {/* Swiper Slider */}
           <div className=" overflow-hidden">
@@ -51,17 +51,17 @@ const TrendingBar = () => {
               }}
               className="!overflow-visible"
             >
-              {trendingTopics.map((topic) => (
+              {trendingTags?.map((topic) => (
                 <SwiperSlide
                   key={topic.id}
                   className="!w-auto "
                 >
                   <Link
-                    href={topic.slug}
+                    href={`/category/${topic?.slug}`}
                     className="text-[#003366] font-black text-[15px] sm:text-base md:text-lg hover:text-[#EE1D23] transition-colors
                      uppercase   bg-gray-200 px-3 md:px-4 py-1"
                   >
-                    {topic.name}
+                    {topic?.name}
                   </Link>
                 </SwiperSlide>
               ))}

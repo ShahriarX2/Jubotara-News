@@ -74,7 +74,6 @@ export default async function CategoryPage({ params, searchParams }) {
     // Robust category detection
     const categoryFromMenu = menus.find(c => c.link === slug || c.slug === slug);
     const categoryFromNews = categoryNews[0]?.categories?.find(c => c.slug === slug);
-
     const categoryName = category?.name || categoryFromMenu?.label || categoryFromMenu?.name || categoryFromNews?.name || 'বিভাগ';
 
     // Fetch latest news for sidebar
@@ -84,11 +83,7 @@ export default async function CategoryPage({ params, searchParams }) {
     const featuredNews = categoryNews[0];
     const otherNews = categoryNews.slice(1);
 
-    const subCategories = [
-        "করোনাভাইরাস", "রাজধানীর খবর", "জাতীয় সংসদ", "চট্টগ্রামের খবর", "ওসমান হাদি",
-        "প্রধান উপদেষ্টা", "ভারতীয় হাইকমিসন", "প্রথম আলো", "ডেইলি স্টার"
-    ];
-
+    const subCategories = category?.child
     const totalPages = meta.last_page || 1;
 
     // JSON-LD Breadcrumb
@@ -134,9 +129,12 @@ export default async function CategoryPage({ params, searchParams }) {
                                 {/* Sub-categories Bar */}
                                 <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
                                     {subCategories?.map((sub, i) => (
-                                        <button key={i} className="whitespace-nowrap px-3 py-1 bg-gray-100 hover:bg-gray-200 text-sm md:text-base font-medium border border-gray-300 transition-colors">
-                                            {sub}
-                                        </button>
+                                        <Link
+                                            href={`/category/${sub?.slug}`}
+                                            key={i}
+                                            className="whitespace-nowrap px-3 py-1 bg-gray-100 hover:bg-gray-200 text-sm md:text-base font-medium border border-gray-300 transition-colors">
+                                            {sub?.name}
+                                        </Link>
                                     ))}
                                 </div>
                             </div>

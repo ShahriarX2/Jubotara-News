@@ -29,10 +29,10 @@ const Footer = async () => {
                         <div className="flex bg-white p-1.5 w-fit">
                             <Logo logoUrl={logoUrl} />
                         </div>
-                        <p className="text-gray-200 text-base md:text-xl leading-relaxed">
+                        <div className="text-gray-200 text-base md:text-xl leading-relaxed">
 
-                            <p dangerouslySetInnerHTML={{ __html: footer_content }} />
-                        </p>
+                            <div dangerouslySetInnerHTML={{ __html: footer_content }} />
+                        </div>
                         <div className="flex items-center gap-4">
                             {/* {['facebook', 'twitter', 'youtube', 'instagram'].map((social) => (
                                 <a key={social} href="#" className="w-8 h-8 border border-gray-700 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300">

@@ -103,25 +103,7 @@ const LocationSearch = () => {
             </select>
           </div>
 
-          {/* Upazila */}
-          <div>
-            <label className="text-base md:text-lg font-semibold text-secondary mb-1">
-              উপজেলা
-            </label>
-            <select
-              value={selectedUpazila}
-              onChange={(e) => setSelectedUpazila(e.target.value)}
-              disabled={!selectedDistrict}
-              className="w-full p-2.5 bg-[#eff3f6] border border-gray-300 text-gray-900 text-base focus:ring-blue-500 focus:border-blue-500 block disabled:opacity-50 focus:outline-none"
-            >
-              <option value="">উপজেলা নির্বাচন করুন</option>
-              {availableUpazilas.map((up) => (
-                <option key={up.id} value={up.id}>
-                  {up.bnName}
-                </option>
-              ))}
-            </select>
-          </div>
+
         </div>
       </div>
 
