@@ -29,7 +29,7 @@ const Footer = async () => {
                         <div className="flex bg-white p-1.5 w-fit">
                             <Logo logoUrl={logoUrl} />
                         </div>
-                        <div className="text-gray-200 text-base md:text-xl leading-relaxed">
+                        <div className="text-gray-200 text-base md:text-xl lg:text-xl leading-relaxed">
 
                             <div dangerouslySetInnerHTML={{ __html: footer_content }} />
                         </div>
@@ -46,8 +46,8 @@ const Footer = async () => {
 
                     {/* Quick Links */}
                     <div className="space-y-3 md:space-y-6">
-                        <h3 className="text-base md:text-xl font-bold border-l-4 border-primary pl-3 text-gray-100 ">বিভাগসমূহ</h3>
-                        <ul className="grid grid-cols-2 gap-2 text-base md:text-lg text-gray-200 ">
+                        <h3 className="text-base md:text-xl  font-bold border-l-4 border-primary pl-3 text-gray-100 ">বিভাগসমূহ</h3>
+                        <ul className="grid grid-cols-2 gap-2 text-base md:text-lg lg:text-xl text-gray-200 ">
                             <li><Link href="/category/national" className="hover:text-white transition-colors">জাতীয়</Link></li>
                             <li><Link href="/category/politics" className="hover:text-white transition-colors">রাজনীতি</Link></li>
                             <li><Link href="/category/international" className="hover:text-white transition-colors">আন্তর্জাতিক</Link></li>
@@ -60,7 +60,7 @@ const Footer = async () => {
                     {/* Company */}
                     <div className="space-y-3 md:space-y-6">
                         <h3 className="text-base md:text-xl font-bold border-l-4 border-primary pl-3 text-gray-100">প্রতিষ্ঠান</h3>
-                        <ul className="space-y-2 text-base md:text-lg text-gray-200 ">
+                        <ul className="space-y-2 text-base md:text-lg lg:text-xl text-gray-200 ">
                             {/* <li><Link href="/about" className="hover:text-white transition-colors">আমাদের সম্পর্কে</Link></li> */}
                             <li><Link href="/team" className="hover:text-white transition-colors">আমাদের টিম</Link></li>
                             {/* <li><Link href="/contact" className="hover:text-white transition-colors">যোগাযোগ</Link></li> */}
@@ -72,7 +72,7 @@ const Footer = async () => {
                     {/* Contact Info */}
                     <div className="space-y-3 md:space-y-6">
                         <h3 className="text-base md:text-xl font-bold border-l-4 border-primary pl-3 text-gray-100">যোগাযোগ</h3>
-                        <div className="text-base md:text-lg text-gray-200 space-y-2">
+                        <div className="text-base md:text-lg lg:text-xl text-gray-200 space-y-2">
                             <p>১২৩ স্টার ভিলা, সেক্টর ৭, উত্তরা, ঢাকা-১২৩০</p>
                             <p>ফোন: {phone}</p>
                             <p>ইমেইল: {email}</p>

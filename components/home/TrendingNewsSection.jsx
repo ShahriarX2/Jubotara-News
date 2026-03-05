@@ -16,13 +16,14 @@ export default async function TrendingNews() {
   return (
     <Container className="">
       <div className="   ">
-        <div className="grid md:grid-cols-3 gap-2 md:gap-4 lg:gap-6">
+        <div className="grid md:grid-cols-3 gap-2 md:gap-4">
           {featuredOthers?.map((news, i) => (
             <div key={i} className="flex justify-between gap-2 border-b pb-4 cursor-pointer group">
 
               {/* Text */}
               <div className="flex-1">
-                <Link href={`/news/${news?.slug}`} className="text-gray-600 text-lg md:text-[22px] leading-[24px] md:leading-[26px] group-hover:text-primary font-semibold ">
+                <Link href={`/news/${news?.slug}`} className="text-gray-600 text-lg md:text-[22px] leading-[24px] md:leading-[26px]
+                 group-hover:text-primary font-semibold line-clamp-2 ">
                   {news?.name}
                 </Link>
                 <p className="text-gray-500 text-base md:text-xl mt-2 line-clamp-2 md:line-clamp-3">

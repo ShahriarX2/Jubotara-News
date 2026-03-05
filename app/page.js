@@ -1,9 +1,7 @@
 
-import Header from '@/components/common/Header/Header';
-import Footer from '@/components/common/Footer';
 import CountryWideSection from '@/components/home/CountryWideSection';
 import SpecialCategorySection from '@/components/home/SpecialCategorySection';
-import { getNews, getBreakingNews, getTrendingNews } from '@/lib/api';
+import { getTrendingNews } from '@/lib/api';
 import Container from '@/components/common/Container';
 import PremiumCategoryBlock from '@/components/home/PremiumCategoryBlock';
 import TrendingNewsSection from '@/components/home/TrendingNewsSection';
@@ -16,7 +14,6 @@ import { getNewsByCat, getTrendingTags, getVideoNews } from '@/lib/fetchData';
 export default async function Home() {
 
   const trendingTags = await getTrendingTags();
-
   const politicsNews = await getNewsByCat("politics", 20)
   const politicsFirstNews = politicsNews[0];
   const politicsSideNews = politicsNews.slice(1, 7)
