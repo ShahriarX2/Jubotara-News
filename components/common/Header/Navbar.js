@@ -6,18 +6,6 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 
-const navItems = [
-    { id: 1, name: "হোম", slug: "/" },
-    { id: 2, name: "জাতীয়", slug: "/category/national" },
-    { id: 3, name: "রাজনীতি", slug: "/category/politics" },
-    { id: 4, name: "আন্তর্জাতিক", slug: "/category/international" },
-    { id: 5, name: "খেলা", slug: "/category/sports" },
-    { id: 6, name: "বিনোদন", slug: "/category/entertainment" },
-    { id: 7, name: "জীবনযাপন", slug: "/category/lifestyle" },
-    { id: 8, name: "প্রযুক্তি", slug: "/category/technology" },
-    { id: 9, name: "অর্থনীতি", slug: "/category/economics" },
-    { id: 10, name: "ভিডিও", slug: "/video" },
-];
 
 
 const Navbar = ({ news_categories, settings }) => {
@@ -46,6 +34,18 @@ const Navbar = ({ news_categories, settings }) => {
                             </Link>
                         </li>
                     ))}
+                    <li className="relative group">
+                        <Link
+                            href={`/video`}
+                            className={`px-3 py-4 block text-[13px] sm:text-sm md:text-xl font-semibold tracking-wide transition-colors duration-200 flex items-center gap-1 ${pathname === "video"
+                                ? 'text-white underline decoration-2 underline-offset-8'
+                                : 'text-white/90 hover:text-white'
+                                }`}
+                        >
+                            ভিডিও
+
+                        </Link>
+                    </li>
 
                 </ul>
             </div>

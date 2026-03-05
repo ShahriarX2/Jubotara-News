@@ -31,7 +31,7 @@ const Footer = async () => {
                         </div>
                         <p className="text-gray-200 text-base md:text-xl leading-relaxed">
 
-                            <p dangerouslySetInnerHTML={{ __html: footer_content }} />
+                            <div dangerouslySetInnerHTML={{ __html: footer_content }} />
                         </p>
                         <div className="flex items-center gap-4">
                             {/* {['facebook', 'twitter', 'youtube', 'instagram'].map((social) => (

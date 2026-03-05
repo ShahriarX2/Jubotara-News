@@ -3,7 +3,7 @@ import Header from '@/components/common/Header/Header';
 import Footer from '@/components/common/Footer';
 import CountryWideSection from '@/components/home/CountryWideSection';
 import SpecialCategorySection from '@/components/home/SpecialCategorySection';
-import { getNews, getBreakingNews, getTrendingNews, getVideoNews } from '@/lib/api';
+import { getNews, getBreakingNews, getTrendingNews } from '@/lib/api';
 import Container from '@/components/common/Container';
 import PremiumCategoryBlock from '@/components/home/PremiumCategoryBlock';
 import TrendingNewsSection from '@/components/home/TrendingNewsSection';
@@ -11,7 +11,7 @@ import ThumbnailNewsSection from '@/components/home/ThumbnailNewsSection';
 import TrendingBar from '@/components/common/Header/TrendingBar';
 import HeronNewsSection from '@/components/home/HeronNewsSection';
 import VideoSection from '@/components/home/VideoSection';
-import { getNewsByCat } from '@/lib/fetchData';
+import { getNewsByCat, getVideoNews } from '@/lib/fetchData';
 
 export default async function Home() {
 
@@ -36,7 +36,8 @@ export default async function Home() {
   // console.log("saraDeshNews", saraDeshNews)
 
   const trendingNews = await getTrendingNews();
-  const videoNews = await getVideoNews();
+  const videoNewsResponse = await getVideoNews(1, 4);
+  const videoNews = videoNewsResponse?.data || [];
 
   const internationalNews = await getNewsByCat("international", 20)
   const entertainmentNews = await getNewsByCat("entertainment", 20)
@@ -93,14 +94,14 @@ export default async function Home() {
         <VideoSection videos={videoNews} />
 
         {/* Sports Section */}
-        {sportsFirstNews  &&   <SpecialCategorySection
+        {sportsFirstNews && <SpecialCategorySection
           title="খেলাধুলা"
           firstNews={sportsFirstNews}
           sideNews={sportsSideNews}
           slug={'sports'}
 
         />}
-      
+
 
 
 
