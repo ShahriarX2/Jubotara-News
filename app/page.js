@@ -11,9 +11,11 @@ import ThumbnailNewsSection from '@/components/home/ThumbnailNewsSection';
 import TrendingBar from '@/components/common/Header/TrendingBar';
 import HeronNewsSection from '@/components/home/HeronNewsSection';
 import VideoSection from '@/components/home/VideoSection';
-import { getNewsByCat, getVideoNews } from '@/lib/fetchData';
+import { getNewsByCat, getTrendingTags, getVideoNews } from '@/lib/fetchData';
 
 export default async function Home() {
+
+  const trendingTags = await getTrendingTags();
 
   const politicsNews = await getNewsByCat("politics", 20)
   const politicsFirstNews = politicsNews[0];
@@ -56,7 +58,7 @@ export default async function Home() {
         </div>
 
       </Container>
-      <TrendingBar />
+      <TrendingBar trendingTags={trendingTags} />
 
 
       <main className="pb-12 space-y-4">

@@ -8,6 +8,7 @@ import truncate from '@/utils/truncate';
 
 const HeronNewsSection = async () => {
 
+
     const featuredNews = await getTrandingNews();
     const featuredNewsFirst = featuredNews[0];
     const newsCategories = featuredNewsFirst?.categories || []
