@@ -10,10 +10,11 @@ import Container from '@/components/common/Container';
 import Link from 'next/link';
 import ThumbnailNewsSection from '@/components/home/ThumbnailNewsSection';
 import { FaGoogle, FaWhatsapp } from "react-icons/fa";
-import { getNewsByCat, getSingleNews, getTrandingNews } from '@/lib/fetchData';
+import { getNewsByCat, getSingleNews, getTrandingNews, getSettings } from '@/lib/fetchData';
 import { formatBengaliDate } from '@/utils/formatDate';
 import { FRONT_END_URL } from '@/utils/baseUrl';
 import FacebookComments from '@/components/news/FacebookComments';
+import { getMetaValueByMetaName } from '@/utils/metaHelpers';
 
 
 export async function generateMetadata({ params }) {
@@ -106,6 +107,10 @@ export default async function NewsDetailPage({ params }) {
     if (!news) {
         notFound();
     }
+    const settings = await getSettings();
+    const googleNewsUrl = getMetaValueByMetaName(settings, "google_news_url") || "#";
+    const whatsappChannelUrl = getMetaValueByMetaName(settings, "whatsapp_channel_url") || "#";
+
     let category
     if (news?.categories) {
         category = news?.categories[0]
@@ -233,7 +238,9 @@ export default async function NewsDetailPage({ params }) {
 
                                         {/* Google News */}
                                         <Link
-                                            href="#"
+                                            href={googleNewsUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="flex items-center gap-4 bg-white hover:bg-blue-50 border border-slate-300 rounded-xl px-5 py-4 transition-all duration-300 hover:shadow-md group"
                                         >
                                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 text-xl group-hover:scale-110 transition">
@@ -251,7 +258,9 @@ export default async function NewsDetailPage({ params }) {
 
                                         {/* WhatsApp Channel */}
                                         <Link
-                                            href="#"
+                                            href={whatsappChannelUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="flex items-center gap-4 bg-white hover:bg-green-50 border border-slate-300 rounded-xl px-5 py-4 transition-all duration-300 hover:shadow-md group"
                                         >
                                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 text-green-600 text-xl group-hover:scale-110 transition">
