@@ -83,7 +83,8 @@ const LocationSearch = () => {
   };
 
   return (
-    <div className="border border-slate-300 p-2 md:p-3 lg:p-5 rounded-sm shadow-sm h-full flex flex-col justify-between">
+    <div className="border  p-2 border-slate-300 md:p-3 lg:p-5 rounded-sm shadow-sm h-full flex flex-col justify-between">
+
       <div>
         <h3 className="text-xl md:text-2xl font-bold text-secondary  border-b  border-gray-100 flex items-center justify-center">
           খুঁজুন
