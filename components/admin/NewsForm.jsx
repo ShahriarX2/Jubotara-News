@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { uploadToCloudinary } from "@/utils/utils";
+import { toast } from "react-toastify";
 import {
   useAddNewsMutation,
   useUpdateNewsMutation,
@@ -11,20 +12,19 @@ import {
 export default function NewsForm({ initialData, onSuccess }) {
   const isEditMode = !!initialData?._id;
 
-  const [formData, setFormData] =
-    useState <
-    NewsData >
-    (initialData || {
+  const [formData, setFormData] = useState(
+    initialData || {
       title: "",
       summary: "",
       category: "",
       content: "",
       imageSrc: "",
       isFeatured: false,
-    });
+    }
+  );
 
   const [categories, setCategories] = useState([]);
-  const [imageFile, setImageFile] = (useState < File) | (null > null);
+  const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(initialData?.imageSrc || "");
   const [loading, setLoading] = useState(false);
 
@@ -69,11 +69,11 @@ export default function NewsForm({ initialData, onSuccess }) {
       !formData.category ||
       !formData.content
     ) {
-      alert("সব ফিল্ড পূরণ করুন।");
+      toast.warn("সব ফিল্ড পূরণ করুন।");
       return;
     }
     if (!imageFile && !formData.imageSrc) {
-      alert("একটি ছবি আপলোড করুন।");
+      toast.warn("একটি ছবি আপলোড করুন।");
       return;
     }
     try {
@@ -96,10 +96,10 @@ export default function NewsForm({ initialData, onSuccess }) {
 
       if (isEditMode && formData._id) {
         await updateNews({ id: formData._id, data: submitData }).unwrap();
-        alert("সংবাদ সফলভাবে আপডেট হয়েছে!");
+        toast.success("সংবাদ সফলভাবে আপডেট হয়েছে!");
       } else {
         await addNews(submitData).unwrap();
-        alert("সংবাদ সফলভাবে যুক্ত হয়েছে!");
+        toast.success("সংবাদ সফলভাবে যুক্ত হয়েছে!");
         setFormData({
           title: "",
           summary: "",
@@ -115,7 +115,7 @@ export default function NewsForm({ initialData, onSuccess }) {
       onSuccess();
     } catch (err) {
       console.error(err);
-      alert(`সংবাদ সংরক্ষণ ব্যর্থ। ${err.message}`);
+      toast.error(`সংবাদ সংরক্ষণ ব্যর্থ। ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -172,7 +172,7 @@ export default function NewsForm({ initialData, onSuccess }) {
                 placeholder="বিস্তারিত সংবাদ"
                 value={formData.content}
                 onChange={handleChange}
-                className="w-full border px-3 py-2 rounded h-32"
+                className="w-full border px-3 py-2 rounded h-96"
               />
             </li>
             <li>

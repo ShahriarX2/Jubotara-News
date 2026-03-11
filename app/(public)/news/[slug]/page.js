@@ -3,7 +3,6 @@ import ShareButtons from "@/components/news/ShareButtons";
 import PrintButton from "@/components/news/PrintButton";
 import NewsPrintTemplate from "@/components/news/NewsPrintTemplate";
 import HorizontalCard from "@/components/news/HorizontalCard";
-import { getNews } from "@/lib/api";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import {
   getSingleNews,
   getTrandingNews,
   getSettings,
+  getNews,
 } from "@/lib/fetchData";
 import { formatBengaliDate } from "@/utils/formatDate";
 import { FRONT_END_URL } from "@/utils/baseUrl";
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
 
   //  title/description
   const newsTitle = news?.meta_title || news?.name || news.title;
-  const title = `${newsTitle} | বাংলা স্টার নিউজ`;
+  const title = `${newsTitle} | যুবতারা নিউজ`;
 
   // Strip HTML and trim for description
   const plainDescription = (
@@ -162,12 +162,10 @@ export default async function NewsDetailPage({ params }) {
         url: `${FRONT_END_URL}/logo.png`,
       },
     },
-    description:
-      news.summary ||
-      news.description
-        ?.replace(/<[^>]*>/g, "")
-        .slice(0, 160)
-        .trim(),
+    description: news.content
+      ?.replace(/<[^>]*>/g, "")
+      .slice(0, 160)
+      .trim(),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": fullUrl,
@@ -200,7 +198,7 @@ export default async function NewsDetailPage({ params }) {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 leading-[1] md:leading-6">
+                <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 leading-none md:leading-6">
                   {news?.name}
                 </h1>
 
@@ -226,7 +224,7 @@ export default async function NewsDetailPage({ params }) {
                 </div>
 
                 {/* Main Image */}
-                <div className="relative h-[300px] md:h-[500px] w-full overflow-hidden shadow-inner">
+                <div className="relative h-75 md:h-125 w-full overflow-hidden shadow-inner">
                   <Image
                     src={news?.featured_image}
                     alt={news?.name || "news image"}
@@ -250,7 +248,7 @@ export default async function NewsDetailPage({ params }) {
 
               {/* Share and Tags */}
               <div className="pt-10 border-t border-slate-300 mt-10">
-                <div className="bg-gradient-to-r from-blue-50 to-gray-50 rounded-sm p-6 md:p-8 shadow-sm">
+                <div className="bg-linear-to-r from-blue-50 to-gray-50 rounded-sm p-6 md:p-8 shadow-sm">
                   <h3 className="text-lg md:text-2xl font-semibold text-gray-800 mb-6">
                     আপডেটেড খবর পেতে আমাদের সাথে যুক্ত থাকুন
                   </h3>

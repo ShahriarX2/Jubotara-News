@@ -1,7 +1,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Container from '../common/Container';
+import Container from '../common/Container.jsx';
 import truncate from '@/utils/truncate';
 
 const CountryWideSection = ({ title, featureNews, gridNews = [], slug }) => {

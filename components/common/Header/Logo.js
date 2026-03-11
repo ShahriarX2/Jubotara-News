@@ -5,7 +5,7 @@ import logoImg from "@/public/images/logo4.png";
 const Logo = ({ logoUrl }) => {
   // console.log('logoUrl', logoUrl)
   return (
-    <Link href="/" className="hidden md:block relative z-60">
+    <Link href="/" className="relative z-60">
       <div className="flex items-center justify-center -mt-2 -ml-2 transition-transform duration-200 hover:scale-105">
         <Image
           src={logoImg}

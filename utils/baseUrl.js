@@ -1,4 +1,2 @@
-// export const BASE_URL = "http://mathmozocms.test";
-export const BASE_URL = "http://admin.banglastarnews.com";
-// export const FRONT_END_URL = "http://bangla-star-news-portal.vercel.app";
-export const FRONT_END_URL = "http://banglastarnews.com";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+export const FRONT_END_URL = process.env.NEXT_PUBLIC_FRONT_END_URL || "http://localhost:3000";

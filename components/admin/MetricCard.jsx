@@ -21,19 +21,19 @@ const MetricCard = ({
         : "text-gray-500";
 
   return (
-    <div className="p-9 bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition duration-300 group h-[300px]">
+    <div className="p-6 bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition duration-300 group">
       <div className="flex items-center justify-between">
         {/* Icon Wrapper */}
         <div
-          className={`flex items-center justify-center w-14 h-14 rounded-2xl ${bgIcon} ${textColor} ring-4 ${ringIcon} group-hover:scale-105 transition`}
+          className={`flex items-center justify-center w-12 h-12 rounded-xl ${bgIcon} ${textColor} ring-4 ${ringIcon} group-hover:scale-105 transition`}
         >
-          <IconComponent className="w-7 h-7" />
+          <IconComponent className="w-6 h-6" />
         </div>
 
         {/* Numeric Value */}
         <div className="text-right">
-          <p className="text-sm font-medium text-gray-500">{title}</p>
-          <p className={`mt-1 text-4xl font-bold tracking-tight ${textColor}`}>
+          <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{title}</p>
+          <p className={`mt-1 text-3xl font-bold tracking-tight ${textColor}`}>
             {value}
           </p>
         </div>

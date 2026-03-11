@@ -18,7 +18,7 @@ const NewsManageCard = ({ item, onEdit, onDelete }) => {
       </p>
 
       {item.content && (
-        <p className="mt-2 text-gray-700 break-words">
+        <p className="mt-2 text-gray-700 break-words line-clamp-2">
           <span className="font-semibold text-black">বিস্তারিত সংবাদ :</span>{" "}
           {item.content}
         </p>

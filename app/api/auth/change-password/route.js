@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import bcrypt from "bcryptjs";
 import User from "@/models/User";
 import connectDB from "@/lib/db";
-import { authOptions } from "@/lib/authOption";
+import { authOptions } from "@/lib/authOptions";
 
 export async function POST(req) {
   try {

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Container from "../Container";
+import Container from "../Container.jsx";
 import { TrendingUp } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";

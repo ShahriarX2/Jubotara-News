@@ -1,16 +1,17 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Container from '../common/Container';
+import Container from '../common/Container.jsx';
 import LocationSearch from './LocationSearch';
-import { getTrandingNews } from '@/lib/fetchData';
+import { getTrandingNews } from '@/lib/localData';
 import truncate from '@/utils/truncate';
 
 const HeronNewsSection = async () => {
-
-
     const featuredNews = await getTrandingNews();
-    const featuredNewsFirst = featuredNews[0];
+    const featuredNewsFirst = featuredNews?.[0];
+
+    if (!featuredNewsFirst) return null;
+
     const newsCategories = featuredNewsFirst?.categories || []
 
     return (

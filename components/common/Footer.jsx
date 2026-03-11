@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Logo from "./Header/Logo";
 import Container from "./Container";
+import { getSettings } from "@/lib/localData";
+import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 
 const Footer = async () => {
   const currentYear = new Date().getFullYear();
+  const settings = await getSettings();
 
   return (
     <footer className="bg-secondary text-white pt-16 pb-4 mt-12">
@@ -12,23 +15,48 @@ const Footer = async () => {
           {/* About */}
           <div className="space-y-3 md:space-y-6">
             <div className="flex bg-white p-1.5 w-fit">
-              <Logo logoUrl="/images/logo.png" />
+              <Logo logoUrl={settings.site_logo} />
             </div>
-            <div className="text-gray-200 text-base md:text-xl lg:text-xl leading-relaxed">
-              {/* <div dangerouslySetInnerHTML={{ __html: footer_content }} /> */}
+            <div className="text-gray-200 text-base md:text-xl lg:text-xl leading-relaxed whitespace-pre-line">
+              {settings.about_text || "বাংলাদেশের অন্যতম নির্ভরযোগ্য অনলাইন সংবাদ মাধ্যম।"}
             </div>
             <div className="flex items-center gap-4">
-              {["facebook", "twitter", "youtube", "instagram"].map((social) => (
+              {settings.facebook_url && (
                 <a
-                  key={social}
-                  href="#"
-                  className="w-8 h-8 border border-gray-700 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300"
+                  href={settings.facebook_url}
+                  target="_blank"
+                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 rounded-full"
                 >
-                  <span className="sr-only">{social}</span>
-
-                  <div className="w-4 h-4 bg-white/20"></div>
+                  <FaFacebookF size={18} />
                 </a>
-              ))}
+              )}
+              {settings.twitter_url && (
+                <a
+                  href={settings.twitter_url}
+                  target="_blank"
+                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 rounded-full"
+                >
+                  <FaTwitter size={18} />
+                </a>
+              )}
+              {settings.youtube_url && (
+                <a
+                  href={settings.youtube_url}
+                  target="_blank"
+                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 rounded-full"
+                >
+                  <FaYoutube size={18} />
+                </a>
+              )}
+              {settings.instagram_url && (
+                <a
+                  href={settings.instagram_url}
+                  target="_blank"
+                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 rounded-full"
+                >
+                  <FaInstagram size={18} />
+                </a>
+              )}
             </div>
           </div>
 
@@ -144,9 +172,9 @@ const Footer = async () => {
               যোগাযোগ
             </h3>
             <div className="text-base md:text-lg lg:text-xl text-gray-200 space-y-2">
-              <p>১২৩ স্টার ভিলা, সেক্টর ৭, উত্তরা, ঢাকা-১২৩০</p>
-              <p>ফোন: +880123456789</p>
-              <p>ইমেইল: jubotaranews@gmail.com</p>
+              {settings.address && <p>{settings.address}</p>}
+              {settings.phone && <p>ফোন: {settings.phone}</p>}
+              {settings.email && <p>ইমেইল: {settings.email}</p>}
             </div>
           </div>
         </div>

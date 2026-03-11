@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const LogoSchema = new Schema(
   {
@@ -8,4 +8,4 @@ const LogoSchema = new Schema(
   { timestamps: true },
 );
 
-export default model("Logo", LogoSchema);
+export default mongoose.models.Logo || model("Logo", LogoSchema);

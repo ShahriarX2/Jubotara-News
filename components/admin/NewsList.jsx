@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { INews } from "@/types/news";
 import NewsManageCard from "@/components/admin/NewsManageCard";
 
 const NewsList = ({ onEditClick }) => {

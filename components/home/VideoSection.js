@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Container from '../common/Container';
+import Container from '../common/Container.jsx';
 import { getYoutubeThumbnail } from '@/utils/youtube';
 
 const VideoSection = ({ videos = [] }) => {
@@ -25,14 +25,14 @@ const VideoSection = ({ videos = [] }) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {videos?.slice(0, 4).map((video) => {
-                        const videoUrl = video.extra_fields?.find(f => f.meta_name === 'video_url')?.meta_value || "";
+                        const videoUrl = video.youtubeUrl || "";
 
                         return (
-                            <Link key={video.id} href={`/video/${video.slug}`} className="group block">
+                            <Link key={video._id} href={`/video/${video._id}`} className="group block">
                                 <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-gray-800">
                                     <Image
                                         src={getYoutubeThumbnail(videoUrl)}
-                                        alt={video.name}
+                                        alt={video.title}
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100"
                                     />
@@ -48,7 +48,7 @@ const VideoSection = ({ videos = [] }) => {
                                 </div>
                                 <div className="mt-4">
                                     <h3 className="mt-1 text-gray-100 text-lg md:text-xl font-semibold line-clamp-2 leading-snug  transition-colors">
-                                        {video.name}
+                                        {video.title}
                                     </h3>
                                 </div>
                             </Link>

@@ -1,15 +1,13 @@
 import Image from "next/image";
-import Container from "../common/Container";
+import Container from "../common/Container.jsx";
 import Link from "next/link";
-import { getTrandingNews } from "@/lib/fetchData";
+import { getTrandingNews } from "@/lib/localData";
 import truncate from "@/utils/truncate";
 
-
-
-
 export default async function TrendingNews() {
-
   const featuredNews = await getTrandingNews();
+
+  if (!featuredNews) return null;
 
   const featuredOthers = featuredNews.slice(1, 7)
 

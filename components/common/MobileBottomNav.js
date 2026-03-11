@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { getCategories } from "@/lib/api";
+import { getCategories } from "@/lib/api-client";
+import { useSession } from "next-auth/react";
 import {
   Home,
   Globe,
@@ -16,9 +17,11 @@ import {
   ChevronRight,
   YoutubeIcon,
   Video,
+  User,
 } from "lucide-react";
 
 export default function MobileBottomNav({ news_categories }) {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -98,17 +101,31 @@ export default function MobileBottomNav({ news_categories }) {
             </Link>
           ))}
 
-          {/* <div className="pt-6 border-t border-gray-100 mt-2 space-y-2">
-                        <p className="text-base font-bold text-gray-700 uppercase tracking-widest ">অন্যান্য</p>
-                        <Link href="/about" className="flex items-center gap-2  text-gray-600 font-bold hover:text-primary 
-                        transition-colors group">
-                            <Info size={20} className="text-gray-400 group-hover:text-primary" /> আমাদের সম্পর্কে
-                        </Link>
-                        <Link href="/contact" className="flex items-center gap-2 text-gray-600 font-bold hover:text-primary
-                         transition-colors group">
-                            <Mail size={20} className="text-gray-400 group-hover:text-primary" /> যোগাযোগ
-                        </Link>
-                    </div> */}
+          <div className="pt-6 border-t border-gray-100 mt-2 space-y-2">
+            {session ? (
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 text-gray-600 font-bold hover:text-primary transition-colors group"
+              >
+                <User
+                  size={20}
+                  className="text-gray-400 group-hover:text-primary"
+                />{" "}
+                ড্যাশবোর্ড
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center gap-2 text-gray-600 font-bold hover:text-primary transition-colors group"
+              >
+                <User
+                  size={20}
+                  className="text-gray-400 group-hover:text-primary"
+                />{" "}
+                লগইন
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Drawer Footer */}

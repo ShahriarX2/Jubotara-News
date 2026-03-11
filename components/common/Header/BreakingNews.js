@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Container from "../Container";
+import Container from "../Container.jsx";
 
 const BreakingNews = ({ news = [] }) => {
   if (!news || news.length === 0) return null;

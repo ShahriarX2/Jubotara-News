@@ -1,36 +1,15 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import News from "@/models/News";
-
-// ... (অন্যান্য ইম্পোর্ট)
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 export async function GET(request) {
-  await dbConnect();
-
   try {
+    await dbConnect();
     const url = request.nextUrl;
-    const pathSegments = url.pathname.split("/").filter(Boolean); // e.g., ['api', 'news', '6925565ac2d5f339e5e127f5']
-    const id = pathSegments[2]; // index 2 = newsId
-
-    // If ID exists, fetch single news
-    if (id) {
-      if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        return NextResponse.json(
-          { success: false, message: "Invalid news ID" },
-          { status: 400 },
-        );
-      }
-      const newsItem = await News.findById(id);
-      if (!newsItem) {
-        return NextResponse.json(
-          { success: false, message: "News not found" },
-          { status: 404 },
-        );
-      }
-      return NextResponse.json({ success: true, data: newsItem });
-    }
-
-    // Otherwise, fetch by category (existing logic)
+    
+    // Fetch by category
     const category = url.searchParams.get("category") || "all";
     const query = {};
     if (category && category !== "all")
@@ -63,10 +42,23 @@ export async function GET(request) {
   }
 }
 
-// POST new news
+// POST new news (Protected)
 export async function POST(req) {
-  await dbConnect();
-  const body = await req.json();
-  const news = await News.create(body);
-  return NextResponse.json({ success: true, data: news }, { status: 201 });
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    await dbConnect();
+    const body = await req.json();
+    const news = await News.create(body);
+    return NextResponse.json({ success: true, data: news }, { status: 201 });
+  } catch (error) {
+    console.error("POST News Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
+  }
 }

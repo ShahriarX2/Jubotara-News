@@ -1,127 +1,63 @@
 "use client";
 import React, { useState } from "react";
 import { signOut } from "next-auth/react";
-// import Image from "next/image";
-import Link from "next/link";
-
 import {
-  MdDashboard,
-  MdArticle,
-  MdCategory,
-  MdPeople,
   MdLogout,
   MdMenu,
-  MdClose,
-  // MdHome,
-  MdSettings,
-  MdAdsClick,
   MdKeyboardArrowDown,
-  MdVideoLibrary,
 } from "react-icons/md";
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/common/Header/Logo";
 
-const NAV_LINKS = [
-  { id: 1, label: "Dashboard", icon: MdDashboard, href: "/dashboard" },
-  { id: 2, label: "Add News", icon: MdArticle, href: "/addnews" },
-  { id: 3, label: "News list", icon: MdCategory, href: "/newslist" },
-  { id: 4, label: "Videos", icon: MdVideoLibrary, href: "/videos" },
-  { id: 5, label: "ADS", icon: MdAdsClick, href: "/ads" },
-  { id: 6, label: "User", icon: MdPeople, href: "/users" },
-  { id: 7, label: "Settings", icon: MdSettings, href: "/settings" },
-  { id: 8, label: "addCategory", icon: MdSettings, href: "/addCategory" },
-];
-
-const AdminNavbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const AdminNavbar = ({ onMenuClick }) => {
   const [adminMenu, setAdminMenu] = useState(false);
-  // const currentPath = usePathname();
-
-  const LinkItem = ({ link }) => {
-    // const isActive = currentPath.startsWith(link.href);
-    const Icon = link.icon;
-
-    return (
-      <a
-        href={link.href}
-        className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition duration-200 whitespace-nowrap`}
-      >
-        <Icon className="w-5 h-5" />
-        <span>{link.label}</span>
-      </a>
-    );
-  };
 
   return (
-    <header className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
-        <div className="flex items-center">
-          <Link href="/">
-            <Logo width={100} height={95} />
-          </Link>
+    <header className="w-full bg-white shadow-sm border-b fixed top-0 left-0 z-40 lg:pl-64 h-16 transition-all duration-300">
+      <div className="flex justify-between items-center h-full px-4 sm:px-6">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onMenuClick}
+            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg lg:hidden"
+          >
+            <MdMenu size={24} />
+          </button>
+          <div className="lg:hidden">
+             <Logo />
+          </div>
+          <h1 className="hidden sm:block text-lg font-semibold text-gray-800">
+            Admin Dashboard
+          </h1>
         </div>
 
-        {/* Center Menu Only for Desktop */}
-        <nav className="hidden lg:flex items-center space-x-3">
-          {NAV_LINKS.map((link) => (
-            <LinkItem key={link.id} link={link} />
-          ))}
-        </nav>
-
-        {/* Admin Button Right */}
-        <div className="hidden lg:block relative">
+        <div className="relative">
           <button
             onClick={() => setAdminMenu(!adminMenu)}
-            className="flex items-center space-x-1 px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200"
+            className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition"
           >
-            <span className="font-medium">Admin</span>
-            <MdKeyboardArrowDown />
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+              A
+            </div>
+            <span className="hidden md:block font-medium text-gray-700">Admin</span>
+            <MdKeyboardArrowDown className={`transition-transform duration-200 ${adminMenu ? 'rotate-180' : ''}`} />
           </button>
 
           {/* Dropdown */}
           {adminMenu && (
-            <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md border py-2">
-              <button
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="flex items-center space-x-2 w-full px-4 py-2 text-red-500 hover:bg-red-100"
-              >
-                <MdLogout className="w-5 h-5" />
-                <span>লগ আউট</span>
-              </button>
-            </div>
+            <>
+              <div className="fixed inset-0 z-0" onClick={() => setAdminMenu(false)}></div>
+              <div className="absolute right-0 mt-2 w-48 bg-white shadow-xl rounded-lg border py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="flex items-center space-x-2 w-full px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition"
+                >
+                  <MdLogout className="w-5 h-5" />
+                  <span>লগ আউট</span>
+                </button>
+              </div>
+            </>
           )}
         </div>
-
-        {/* Mobile Button */}
-        <button
-          className="lg:hidden p-2 text-gray-700"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? (
-            <MdClose className="w-6 h-6" />
-          ) : (
-            <MdMenu className="w-6 h-6" />
-          )}
-        </button>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-white shadow-md border-t">
-          <nav className="flex flex-col p-4 space-y-2">
-            {NAV_LINKS.map((link) => (
-              <LinkItem key={link.id} link={link} />
-            ))}
-
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-100 rounded-md"
-            >
-              <MdLogout className="w-5 h-5" />
-              <span>লগ আউট</span>
-            </button>
-          </nav>
-        </div>
-      )}
     </header>
   );
 };

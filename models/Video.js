@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const VideoSchema = new Schema(
   {
@@ -9,4 +9,4 @@ const VideoSchema = new Schema(
   { timestamps: true },
 );
 
-export default model("Video", VideoSchema);
+export default mongoose.models.Video || model("Video", VideoSchema);

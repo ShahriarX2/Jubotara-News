@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ChangeLogo() {
-  const [preview, setPreview] = (useState < string) | (null > null);
-  const [selectedFile, setSelectedFile] = (useState < File) | (null > null);
+  const [preview, setPreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (file) => {
@@ -29,9 +30,9 @@ export default function ChangeLogo() {
 
       if (!res.ok) throw new Error("Upload failed");
 
-      alert("Logo updated successfully!");
+      toast.success("Logo updated successfully!");
     } catch (error) {
-      alert("Failed to upload logo");
+      toast.error("Failed to upload logo");
     } finally {
       setLoading(false);
     }

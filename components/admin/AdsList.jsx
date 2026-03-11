@@ -4,7 +4,6 @@ import {
   useGetAdsQuery,
   useDeleteAdMutation,
 } from "@/app/redux/features/ads/adsApi";
-import { Ad } from "@/types/ads";
 
 export default function AdsList({ setSelectedAd }) {
   const { data, isLoading, isError } = useGetAdsQuery();

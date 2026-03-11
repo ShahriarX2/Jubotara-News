@@ -2,16 +2,27 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Logo from "@/models/Logo";
 import { uploadToCloudinary } from "@/utils/cloudinary";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 export async function GET() {
-  await dbConnect();
-  const logos = await Logo.find().sort({ createdAt: -1 }); // return array
-  return NextResponse.json({ success: true, logos });
-}
-export async function POST(req) {
   try {
     await dbConnect();
+    const logos = await Logo.find().sort({ createdAt: -1 });
+    return NextResponse.json({ success: true, logos });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: "Failed to fetch logo" }, { status: 500 });
+  }
+}
 
+export async function POST(req) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    await dbConnect();
     const formData = await req.formData();
     const file = formData.get("logo");
 
@@ -22,10 +33,7 @@ export async function POST(req) {
       );
     }
 
-    // Upload to Cloudinary
     const cloudinaryData = await uploadToCloudinary(file);
-    // cloudinaryData should be the object returned by Cloudinary
-    // Only save the secure_url (string) to logoUrl
     const updatedLogo = await Logo.findOneAndUpdate(
       {},
       {
@@ -50,12 +58,20 @@ export async function POST(req) {
 }
 
 export async function DELETE() {
-  await dbConnect();
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-  await Logo.findOneAndUpdate({}, { logoUrl: null });
+    await dbConnect();
+    await Logo.findOneAndUpdate({}, { logoUrl: null });
 
-  return NextResponse.json({
-    success: true,
-    message: "Logo removed",
-  });
+    return NextResponse.json({
+      success: true,
+      message: "Logo removed",
+    });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: "Failed to remove logo" }, { status: 500 });
+  }
 }

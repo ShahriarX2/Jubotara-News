@@ -1,20 +1,15 @@
 // metaHelpers.js
 
-import { BASE_URL } from "./baseUrl";
-
-
 export const getMetaDescriptionByMetaName = (data, metaName) => {
-  // console.log("from meta helper",jsonData?.data);
+  if (!Array.isArray(data)) return data?.[metaName] || null;
   const foundItem = data?.find((item) => item.meta_name === metaName);
-  // console.log("from meta helper", foundItem ? foundItem?.meta_value :null);
   return foundItem ? foundItem.meta_description : null;
 };
 
 
 export const getMetaValueByMetaName = (data, metaName) => {
-  // console.log("from meta helper",jsonData?.data);
+  if (!Array.isArray(data)) return data?.[metaName] || null;
   const foundItem = data?.find((item) => item.meta_name === metaName);
-  // console.log("from meta helper", foundItem ? foundItem?.meta_value :null);
   return foundItem ? foundItem.meta_value : null;
 };
 
@@ -39,6 +34,14 @@ export const getMetaValueFromExtraFieldsNonCapital = (jsonData, metaName) => {
 export const getMediaLinkByMetaName = (data, metaName) => {
   if (!data || !metaName) return null;
 
+  if (!Array.isArray(data)) {
+    const item = data[metaName];
+    if (item?.file_directory && item?.filename) {
+      return item.file_directory + item.filename;
+    }
+    return null;
+  }
+
   const item = data.find(
     (dataItem) => dataItem.meta_name === metaName
   );
@@ -53,7 +56,7 @@ export const getMediaLinkByMetaName = (data, metaName) => {
 
 
 export const getImageUrl = (url) => {
-  return `${BASE_URL}${url}`
+  return url;
 }
 
 // export const getMediaLinkByMetaName = (data, metaName) => {

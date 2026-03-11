@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
-import { Ad } from "@/types/ads";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { uploadToCloudinary } from "@/utils/utils";
+import { toast } from "react-toastify";
 
 import {
   useAddAdMutation,
@@ -11,7 +11,7 @@ import {
 } from "@/app/redux/features/ads/adsApi";
 
 export default function AddAds({ selectedAd, setSelectedAd }) {
-  const [file, setFile] = (useState < File) | (null > null);
+  const [file, setFile] = useState(null);
   // If editing → use selectedAd data
   const initialForm = selectedAd || {
     title: "",
@@ -22,7 +22,7 @@ export default function AddAds({ selectedAd, setSelectedAd }) {
     endDate: "",
   };
 
-  const [form, setForm] = useState < Ad > initialForm;
+  const [form, setForm] = useState(initialForm);
 
   const [addAd, { isLoading: isAdding }] = useAddAdMutation();
   const [updateAd, { isLoading: isUpdating }] = useUpdateAdMutation();
@@ -60,12 +60,12 @@ export default function AddAds({ selectedAd, setSelectedAd }) {
 
       if (selectedAd) {
         // UPDATE MODE
-        await updateAd({ id, data: adData }).unwrap();
-        alert("Ad updated successfully!");
+        await updateAd({ id: selectedAd._id, data: adData }).unwrap();
+        toast.success("Ad updated successfully!");
       } else {
         // ADD MODE
         await addAd(adData).unwrap();
-        alert("Ad added successfully!");
+        toast.success("Ad added successfully!");
       }
 
       // Reset form
@@ -74,7 +74,7 @@ export default function AddAds({ selectedAd, setSelectedAd }) {
       setFile(null);
     } catch (error) {
       console.error(error);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     }
   };
 

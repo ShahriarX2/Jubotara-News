@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
 import Category from "@/models/Category";
 import dbConnect from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
-// POST: create new category
+// POST: create new category (Protected)
 export async function POST(req) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     await dbConnect();
     const { name } = await req.json();
 
-    // Validation
     if (!name || name.trim() === "") {
       return NextResponse.json(
         { success: false, message: "Category name is required" },
@@ -16,10 +22,8 @@ export async function POST(req) {
       );
     }
 
-    // Generate slug
     const slug = name.toLowerCase().trim().replace(/\s+/g, "-");
 
-    // Check for duplicates
     const existing = await Category.findOne({ slug });
     if (existing) {
       return NextResponse.json(
@@ -28,11 +32,10 @@ export async function POST(req) {
       );
     }
 
-    // Create new category
     const category = await Category.create({ name, slug });
     return NextResponse.json({ success: true, category }, { status: 201 });
-  } catch {
-    console.error("POST /api/category error:");
+  } catch (error) {
+    console.error("POST /api/category error:", error);
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 },
@@ -44,13 +47,10 @@ export async function POST(req) {
 export async function GET() {
   try {
     await dbConnect();
-
-    // Fetch and sort categories alphabetically
     const categories = await Category.find().sort({ name: 1 });
-
     return NextResponse.json({ success: true, categories }, { status: 200 });
-  } catch {
-    console.error("GET /api/category error:");
+  } catch (error) {
+    console.error("GET /api/category error:", error);
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 },

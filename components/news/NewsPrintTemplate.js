@@ -49,7 +49,7 @@ const NewsPrintTemplate = ({ news, category }) => {
             {/* News content */}
             <div className="news-content-print">
                 <div
-                    className="text-lg leading-relaxed text-gray-900"
+                    className="text-lg leading-relaxed text-gray-900 whitespace-pre-line"
                     dangerouslySetInnerHTML={{
                         __html: news.description || '<p>No content available.</p>'
                     }}

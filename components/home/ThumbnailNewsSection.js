@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import MediumCard from '../news/MediumCard';
 import Image from 'next/image';
-import Container from '../common/Container';
+import Container from '../common/Container.jsx';
 import truncate from '@/utils/truncate';
 
 const ThumbnailNewsSection = ({ news = [], title, slug }) => {

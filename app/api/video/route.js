@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
+import dbConnect from "@/lib/db";
+import Video from "@/models/Video";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 // -------------------------
-// POST: Add YouTube Video
+// POST: Add YouTube Video (Protected)
 // -------------------------
 export async function POST(req) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
     const { title, youtubeUrl } = body;
 
@@ -16,9 +24,7 @@ export async function POST(req) {
       );
     }
 
-    // Extract YouTube Video ID
     const videoId = extractVideoId(youtubeUrl);
-
     if (!videoId) {
       return NextResponse.json(
         { error: "Invalid YouTube URL" },
@@ -26,8 +32,7 @@ export async function POST(req) {
       );
     }
 
-    await connectDB();
-
+    await dbConnect();
     const newVideo = await Video.create({
       title,
       youtubeUrl,
@@ -38,8 +43,8 @@ export async function POST(req) {
       { success: true, data: newVideo },
       { status: 201 },
     );
-  } catch {
-    console.error("Add Video Error:");
+  } catch (error) {
+    console.error("Add Video Error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
@@ -49,33 +54,25 @@ export async function POST(req) {
 // -------------------------
 export async function GET() {
   try {
-    await connectDB();
-
+    await dbConnect();
     const videos = await Video.find().sort({ createdAt: -1 });
-
     return NextResponse.json({ success: true, data: videos }, { status: 200 });
-  } catch {
-    console.error("Get Videos Error");
+  } catch (error) {
+    console.error("Get Videos Error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 // -------------------------
-// Helper function: Extract YouTube Video ID
-// -------------------------
-function extractVideoId(url) {
-  if (!url) return null;
-
-  const regex = /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-}
-
-// -------------------------
-// DELETE: Delete Video by ID
+// DELETE: Delete Video by ID (Protected)
 // -------------------------
 export async function DELETE(req) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 
@@ -86,8 +83,7 @@ export async function DELETE(req) {
       );
     }
 
-    await connectDB();
-
+    await dbConnect();
     const deletedVideo = await Video.findByIdAndDelete(id);
 
     if (!deletedVideo) {
@@ -102,4 +98,11 @@ export async function DELETE(req) {
     console.error("Delete Video Error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
+}
+
+function extractVideoId(url) {
+  if (!url) return null;
+  const regex = /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
 }

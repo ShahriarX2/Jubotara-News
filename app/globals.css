@@ -2,13 +2,15 @@
 
 @theme {
   --color-primary: #ee1d23;
-  --color-secondary: #2e86ab;
+  --color-secondary: #e9967a;
 
   --font-sans:
     var(--font-solaiman-lipi), "SolaimanLipi", ui-sans-serif, system-ui,
     sans-serif;
   --font-bengali: var(--font-solaiman-lipi), "SolaimanLipi", sans-serif;
 }
+
+@variant dark (&:where(.dark, .dark *));
 
 /* Custom styles for news theme */
 @layer base {
@@ -21,7 +23,58 @@
   }
 
   body {
-    @apply bg-[#eff3f6] text-gray-900;
+    @apply bg-[#eff3f6] text-gray-900 transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-[#121212] text-gray-100;
+  }
+
+  .dark .bg-white {
+    @apply bg-[#1e1e1e] border-gray-800;
+  }
+
+  .dark .text-gray-900 {
+    @apply text-gray-100;
+  }
+
+  .dark .text-gray-800 {
+    @apply text-gray-200;
+  }
+
+  .dark .text-gray-700 {
+    @apply text-gray-300;
+  }
+
+  .dark .text-gray-600 {
+    @apply text-gray-400;
+  }
+
+  .dark .border-gray-100,
+  .dark .border-gray-200,
+  .dark .border-gray-300 {
+    @apply border-gray-800;
+  }
+
+  .dark .border-slate-300,
+  .dark .border-gray-300 {
+    @apply border-gray-800;
+  }
+
+  .dark .hover\:bg-\[\#eff3f6\]:hover {
+    @apply bg-[#1e1e1e];
+  }
+
+  .dark .bg-\[\#eff3f6\] {
+    @apply bg-[#121212];
+  }
+
+  .dark .text-secondary {
+    @apply text-blue-400;
+  }
+
+  .dark .bg-secondary {
+    @apply bg-[#1e1e1e];
   }
 }
 
@@ -39,8 +92,16 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   }
 
+  .dark .news-card-hover:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
   .section-title {
     @apply text-2xl font-black text-gray-900 border-t-4 border-primary pt-2 mb-6 uppercase tracking-tight;
+  }
+
+  .dark .section-title {
+    @apply text-gray-100;
   }
 }
 

@@ -1,8 +1,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Container from '../common/Container';
-import { getNewsByCat } from '@/lib/fetchData';
+import Container from '../common/Container.jsx';
+import { getNewsByCat } from '@/lib/localData';
 import truncate from '@/utils/truncate';
 
 const SpecialCategorySection = async ({ title, firstNews = {}, sideNews = [], slug }) => {

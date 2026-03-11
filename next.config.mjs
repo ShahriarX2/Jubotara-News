@@ -25,19 +25,14 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'admin.banglastarnews.com',
       },
-
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://admin.banglastarnews.com/api/v1/:path*",
-
-      },
-    ];
-  },
   reactStrictMode: true,
+  serverExternalPackages: ["mongoose", "bcryptjs"],
 };
 
 export default nextConfig;

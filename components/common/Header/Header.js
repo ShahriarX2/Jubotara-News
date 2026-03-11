@@ -1,22 +1,22 @@
 import Logo from "./Logo";
 import Navbar from "./Navbar";
-import Container from "../Container";
-import HeaderActions from "./HeaderActions";
+import Container from "../Container.jsx";
+import HeaderActions from "./HeaderActions.jsx";
 import BreakingNews from "@/components/common/Header/BreakingNews";
 import {
   getBreakingNews,
   getFeaturedCategories,
   getSettings,
-} from "@/lib/fetchData";
+  getNavbarItems,
+} from "@/lib/localData";
 import { getImageUrl, getMediaLinkByMetaName } from "@/utils/metaHelpers";
 
 const Header = async () => {
   const breakingNews = await getBreakingNews();
-  const news_categories = await getFeaturedCategories();
+  const news_categories = await getNavbarItems();
   const settings = await getSettings();
 
-  const logo = getMediaLinkByMetaName(settings, "site_logoimg_id");
-  const logoUrl = getImageUrl(logo);
+  const logoUrl = settings.site_logo;
   // console.log("logo", logo)
 
   return (

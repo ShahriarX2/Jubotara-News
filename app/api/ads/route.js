@@ -1,42 +1,76 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { NextResponse } from "next/server";
+import dbConnect from "@/lib/db";
+import Ads from "@/models/Ads";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
-export const videoApi = createApi({
-  reducerPath: "videoApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
-  }),
-  tagTypes: ["Videos"],
+export async function GET() {
+  try {
+    await dbConnect();
+    const ads = await Ads.find().sort({ createdAt: -1 });
+    return NextResponse.json({ success: true, data: ads });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: "Failed to fetch ads" }, { status: 500 });
+  }
+}
 
-  endpoints: (builder) => ({
-    // GET VIDEOS
-    getVideos: builder.query({
-      query: () => "/video",
-      providesTags: ["Videos"],
-    }),
+export async function POST(req) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-    // ADD VIDEO
-    addVideo: builder.mutation({
-      query: (body) => ({
-        url: "/video",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["Videos"],
-    }),
+    await dbConnect();
+    const body = await req.json();
+    const ad = await Ads.create(body);
+    return NextResponse.json({ success: true, data: ad }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: "Failed to create ad" }, { status: 500 });
+  }
+}
 
-    // DELETE VIDEO
-    deleteVideo: builder.mutation({
-      query: (id) => ({
-        url: `/video?id=${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Videos"],
-    }),
-  }),
-});
+export async function PATCH(req) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-export const {
-  useGetVideosQuery,
-  useAddVideoMutation,
-  useDeleteVideoMutation,
-} = videoApi;
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    if (!id) return NextResponse.json({ message: "ID is required" }, { status: 400 });
+
+    await dbConnect();
+    const body = await req.json();
+    const updatedAd = await Ads.findByIdAndUpdate(id, body, { new: true });
+    
+    if (!updatedAd) return NextResponse.json({ message: "Ad not found" }, { status: 404 });
+    
+    return NextResponse.json({ success: true, data: updatedAd });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: "Failed to update ad" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    if (!id) return NextResponse.json({ message: "ID is required" }, { status: 400 });
+
+    await dbConnect();
+    const deletedAd = await Ads.findByIdAndDelete(id);
+    
+    if (!deletedAd) return NextResponse.json({ message: "Ad not found" }, { status: 404 });
+    
+    return NextResponse.json({ success: true, message: "Ad deleted" });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: "Failed to delete ad" }, { status: 500 });
+  }
+}
